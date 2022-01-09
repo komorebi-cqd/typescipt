@@ -1,28 +1,50 @@
+type Card = NormalCard[]
 
-function sum(a: number, b: number): number {
-    return a + b;
+type Color = "♠" | "♥" | "♣" | "♦" | "🃏" | "🃏";
+
+type NormalCard = {
+    color: Color
+    numb: number | string
 }
 
 
-
-
-
-// const n = sum(1,3);
-
-let nums: number[] = [1, 2, 3];
-let nums2: Array<number | string> = [3, 4, 5, '2222'];
-
-let s: [number, string, null]; //元祖类型 tuple
-s = [1,'2',null]
-
-function takeThrow(msg:string){
-    throw new Error(msg);
+function createCard(): Card {
+    const colors: Color[] = ["♠", "♥", "♣", "♦"]
+    let card: Card = []
+    for (let i = 1; i <= 13; i++) {
+        for (let j = 0; j < colors.length; j++) {
+            if (i === 1) {
+                card.push({ color: colors[j], numb: "A" }); continue;
+            }
+            if (i === 11) {
+                card.push({ color: colors[j], numb: "J" }); continue;
+            }
+            if (i === 12) {
+                card.push({ color: colors[j], numb: "Q" }); continue;
+            }
+            if (i === 13) {
+                card.push({ color: colors[j], numb: "K" }); continue;
+            }
+            card.push({ color: colors[j], numb: i });
+        }
+    }
+    card.push({ color: "🃏", numb: "小王" })
+    card.push({ color: "🃏", numb: "大王" })
+    return card
 }
 
-function print():void{
-    console.log('hello');
-    console.log('world');
+
+function printCard(card: Card): void {
+    let result = "\n";
+    card.forEach((c, i) => {
+        result += c.numb + c.color
+        result += "\t";
+        if ((i + 1) % 9 === 0) {
+            result += "\n"
+        }
+    })
+    console.log(result);
+
 }
 
-let b:boolean;
-
+printCard(createCard());
